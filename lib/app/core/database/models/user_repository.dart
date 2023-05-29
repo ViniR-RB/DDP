@@ -35,7 +35,7 @@ class UserRepository {
     final db = await database;
 
     List<Map<String, dynamic>> items = await db.query('users',
-        where: 'email = ?,password = ?', whereArgs: [email, password]);
+        where: 'email = ? and password = ?', whereArgs: [email, password]);
 
     return List.generate(
       items.length,

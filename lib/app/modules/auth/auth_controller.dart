@@ -18,7 +18,7 @@ class AuthController {
         password: password);
 
     await repository.inserUser(user);
-
+    storage.write('user_id', user.id);
     Modular.to.navigate('/home');
   }
 
@@ -26,5 +26,7 @@ class AuthController {
     final user = await repository.getUser(email, password);
 
     storage.write('user_id', user[0].id);
+    print(user);
+    Modular.to.navigate('/home');
   }
 }

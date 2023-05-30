@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:maps/app/app_controller.dart';
 import 'package:maps/app/core/database/models/user_repository.dart';
 
 import 'core/services/secure_storage.dart';
@@ -10,6 +11,7 @@ class AppModule extends Module {
   List<Bind> get binds => [
         Bind((i) => UserRepository()),
         Bind((i) => SecureStorage()),
+        Bind((i) => AppController(i.get(), i.get()))
       ];
 
   @override

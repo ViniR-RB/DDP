@@ -6,9 +6,9 @@ import 'package:uuid/uuid.dart';
 import '../../core/database/models/user_repository.dart';
 
 class AuthController {
-  final UserRepository repository = UserRepository();
+  final UserRepository repository;
   final SecureStorage storage;
-  AuthController(this.storage);
+  AuthController(this.storage, this.repository);
 
   Future<void> signUp(String name, String email, String password) async {
     final User user = User(

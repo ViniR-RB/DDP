@@ -8,14 +8,16 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'My Smart App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
         appBarTheme: const AppBarTheme(
-          actionsIconTheme: IconThemeData(),
-            backgroundColor: Colors.blueAccent,
-            elevation: 1,
+            actionsIconTheme: IconThemeData(),
+            backgroundColor: Colors.white,
+            elevation: 0,
             titleTextStyle: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                color: Colors.black, fontWeight: FontWeight.w900, fontSize: 16),
             centerTitle: true),
         // Defina o tema personalizado para o TextField
         inputDecorationTheme: const InputDecorationTheme(

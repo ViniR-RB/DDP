@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                     CustomInputPassword(
                       labelText: 'Password',
                       controller: _passwordController,
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.visiblePassword,
                       prefixIcon: const Icon(Icons.password),
                     ),
                     TextButton(

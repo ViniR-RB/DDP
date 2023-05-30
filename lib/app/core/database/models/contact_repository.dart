@@ -8,7 +8,6 @@ import '../../models/contact.dart';
 class ContactRepository {
   Database? _database;
 
-
   Future<Database> get database async {
     final dbpath = await getDatabasesPath();
     const dbname = 'dpm.db';
@@ -20,7 +19,7 @@ class ContactRepository {
 
   FutureOr<void> _createDB(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE contacts (id UUID PRIMARY KEY,name VARCHAR(255), user_id UUID, latitude DECIMAL(9,6),longitude DECIMAL(9,6))');
+        'CREATE TABLE IF NOT EXISTS contacts (id UUID PRIMARY KEY,name VARCHAR(255), user_id UUID,phone VARCHAR(11), latitude DECIMAL(9,6),longitude DECIMAL(9,6))');
   }
 
   Future<void> inserContact(Contact contact) async {

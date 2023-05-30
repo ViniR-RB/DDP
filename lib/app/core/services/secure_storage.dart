@@ -7,12 +7,12 @@ class SecureStorage {
   ));
 
   SecureStorage();
-  readAll() {
-    return _storage.readAll();
+  Future<Map<String, String>> readAll() async {
+    return await _storage.readAll();
   }
 
-  read(String key) {
-    _storage.read(key: key);
+  Future<String?> read(String key) async {
+    return await _storage.read(key: key);
   }
 
   delete(String key) {

@@ -2,9 +2,9 @@
 import 'dart:convert';
 
 class Contact {
-  final int id;
+  final String id;
   final String name;
-  final int userId;
+  final String userId;
   final double latitude;
   final double longitude;
   Contact({
@@ -16,9 +16,9 @@ class Contact {
   });
 
   Contact copyWith({
-    int? id,
+    String? id,
     String? name,
-    int? userId,
+    String? userId,
     double? latitude,
     double? longitude,
   }) {
@@ -43,9 +43,9 @@ class Contact {
 
   factory Contact.fromMap(Map<String, dynamic> map) {
     return Contact(
-      id: map['id'] as int,
+      id: map['id'] as String,
       name: map['name'] as String,
-      userId: map['user_id'] as int,
+      userId: map['user_id'] as String,
       latitude: map['latitude'] as double,
       longitude: map['longitude'] as double,
     );

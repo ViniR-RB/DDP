@@ -5,7 +5,7 @@ import 'package:maps/app/modules/auth/signup_page.dart';
 
 class AuthModule extends Module {
   @override
-  List<Bind> get binds => [Bind((i) => AuthController(i.get()))];
+  List<Bind> get binds => [Bind((i) => AuthController(i.get(), i.get()))];
 
   @override
   List<ModularRoute> get routes => [

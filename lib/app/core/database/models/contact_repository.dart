@@ -19,7 +19,7 @@ class ContactRepository {
 
   FutureOr<void> _createDB(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE IF NOT EXISTS contacts (id UUID PRIMARY KEY,name VARCHAR(255), user_id UUID,phone VARCHAR(11), latitude DECIMAL(9,6),longitude DECIMAL(9,6))');
+        'CREATE TABLE IF NOT EXISTS contacts (id UUID PRIMARY KEY,name VARCHAR(255), user_id UUID,phone VARCHAR(11), latitude DECIMAL(9,6),longitude DECIMAL(9,6),FOREIGN KEY (user_id) REFERENCES users (id))');
   }
 
   Future<void> inserContact(Contact contact) async {
@@ -42,6 +42,23 @@ class ContactRepository {
 
     List<Map<String, dynamic>> items =
         await db.query('contacts', where: 'id = ?', whereArgs: [id]);
+
+    return List.generate(
+      items.length,
+      (i) => Contact(
+          id: items[i]['id'],
+          latitude: items[i]['latitude'],
+          longitude: items[i]['longitude'],
+          name: items[i]['name'],
+          userId: items[i]['user_id']),
+    );
+  }
+
+  Future<List<Contact>> getContactsFromUser(dynamic userId) async {
+    final db = await database;
+
+    List<Map<String, dynamic>> items =
+        await db.query('contacts', where: 'user_id = ?', whereArgs: [userId]);
 
     return List.generate(
       items.length,

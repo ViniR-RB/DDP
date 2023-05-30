@@ -26,4 +26,9 @@ class HomeRepository {
       /*   repository.inserContact(contact); */
     }
   }
+
+  Future<List<Contact>> fetchContacts() async {
+    final userId = await storage.read("user_id");
+    return await repository.getContactsFromUser(userId);
+  }
 }

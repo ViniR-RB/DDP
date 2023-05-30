@@ -24,6 +24,7 @@ class HomePage extends StatelessWidget {
               title: 'Mapas',
               subTitle: 'Veja os contatos Adicionandos no Mapa',
               leading: Icons.maps_home_work,
+              onTap: () => Modular.to.pushNamed('/home/maps'),
             ),
             CardCategory(
               title: 'Profile',

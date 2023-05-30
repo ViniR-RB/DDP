@@ -8,6 +8,7 @@ import '../../core/database/models/contact_repository.dart';
 import '../../core/services/geocoding.dart';
 import '../../core/services/secure_storage.dart';
 import 'home_page.dart';
+import 'maps/maps_module.dart';
 import 'pages/profile_page.dart';
 
 class HomeModule extends Module {
@@ -33,5 +34,6 @@ class HomeModule extends Module {
           '/contacts',
           child: (context, args) => const ContactsPage(),
         ),
+        ModuleRoute('/maps', module: MapsModule())
       ];
 }

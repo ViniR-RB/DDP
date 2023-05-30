@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:maps/app/modules/auth/auth_controller.dart';
+import 'package:maps/app/core/components/custom_password.dart';
 
-import '../../core/components/custom_input.dart';
-import '../../core/components/custom_password.dart';
+import '../../../core/components/custom_input.dart';
+import '../auth_controller.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _LoginPageState extends State<LoginPage> {
   final _controller = Modular.get<AuthController>();
-  final TextEditingController _nameController = TextEditingController();
 
   final TextEditingController _emailController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SignUp'),
+        title: const Text('Login'),
       ),
       body: LayoutBuilder(
         builder: (p0, size) {
@@ -42,28 +40,22 @@ class _SignUpPageState extends State<SignUpPage> {
                       keyboardType: TextInputType.emailAddress,
                       prefixIcon: const Icon(Icons.email),
                     ),
-                    CustomInput(
-                      labelText: 'Nome',
-                      controller: _nameController,
-                      keyboardType: TextInputType.name,
-                      prefixIcon: const Icon(Icons.people),
-                    ),
                     CustomInputPassword(
                       labelText: 'Password',
                       controller: _passwordController,
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.visiblePassword,
                       prefixIcon: const Icon(Icons.password),
                     ),
                     TextButton(
-                      child: const Text('Voltar para o Login?'),
-                      onPressed: () => Modular.to.pushNamed('/'),
+                      child: const Text('Não possui uma conta?'),
+                      onPressed: () => Modular.to.pushNamed('/signup'),
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        await _controller.signUp(_nameController.text,
+                        await _controller.logIn(
                             _emailController.text, _passwordController.text);
                       },
-                      child: const Text('SignUp'),
+                      child: const Text('Log-In'),
                     ),
                   ]),
             ),

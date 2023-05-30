@@ -35,7 +35,7 @@ class Contact {
     return <String, dynamic>{
       'id': id,
       'name': name,
-      'userId': userId,
+      'user_id': userId,
       'latitude': latitude,
       'longitude': longitude,
     };

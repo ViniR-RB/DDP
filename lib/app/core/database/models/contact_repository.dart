@@ -13,11 +13,16 @@ class ContactRepository {
     const dbname = 'dpm.db';
     final path = join(dbpath, dbname);
     // Conectando
-    _database = await openDatabase(path, version: 1, onCreate: _createDB);
+    _database = await openDatabase(path,
+        version: 1, onConfigure: _onConfigure, onCreate: _createDB);
     return _database!;
   }
 
-  FutureOr<void> _createDB(Database db, int version) async {
+  Future<void> _onConfigure(Database db) async {
+    await db.execute('PRAGMA foreign_keys = ON');
+  }
+
+  Future<void> _createDB(Database db, int version) async {
     await db.execute(
         'CREATE TABLE IF NOT EXISTS contacts (id UUID PRIMARY KEY,name VARCHAR(255), user_id UUID,phone VARCHAR(11), latitude DECIMAL(9,6),longitude DECIMAL(9,6),FOREIGN KEY (user_id) REFERENCES users (id))');
   }

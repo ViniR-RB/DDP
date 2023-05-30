@@ -23,7 +23,7 @@ class HomeRepository {
         longitude: locations['longitude'],
       );
       print(locations);
-      /*   repository.inserContact(contact); */
+      await repository.inserContact(contact);
     }
   }
 

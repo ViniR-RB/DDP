@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 class CardContact extends StatelessWidget {
   final String title;
+  final String initialName;
   void Function()? onTap;
 
-  CardContact({super.key, required this.title, this.onTap});
+  CardContact({super.key, required this.title, this.onTap,required this.initialName});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class CardContact extends StatelessWidget {
             leading: CircleAvatar(
               radius: 18,
               backgroundColor: Colors.green,
-              child: Text('A'.toUpperCase(),
+              child: Text(initialName.toUpperCase(),
                   style: const TextStyle(
                       fontSize: 20,
                       color: Colors.white,

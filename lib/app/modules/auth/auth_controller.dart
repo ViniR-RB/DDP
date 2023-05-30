@@ -25,8 +25,8 @@ class AuthController {
   Future<void> logIn(String email, String password) async {
     final user = await repository.getUser(email, password);
 
-    storage.write('user_id', user[0].id);
     print(user);
+    storage.write('user_id', user[0].id);
     Modular.to.navigate('/home');
   }
 }

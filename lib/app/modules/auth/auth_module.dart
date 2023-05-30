@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maps/app/modules/auth/auth_controller.dart';
-import 'package:maps/app/modules/auth/login_page.dart';
-import 'package:maps/app/modules/auth/signup_page.dart';
+import 'package:maps/app/modules/auth/pages/login_page.dart';
+import 'package:maps/app/modules/auth/pages/signup_page.dart';
 
 class AuthModule extends Module {
   @override

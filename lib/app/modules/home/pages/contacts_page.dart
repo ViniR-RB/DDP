@@ -43,8 +43,12 @@ class _ContactsPageState extends State<ContactsPage> {
                   child: Text('Crie Agora Mesmo Seus Contatos'),
                 )
               : ListView.builder(
+                  itemCount: value.length,
                   itemBuilder: (context, index) {
-                    return CardContact(title: 'Amor', onTap: () async {});
+                    return CardContact(
+                        initialName: value[index].name[0],
+                        title: value[index].name,
+                        onTap: () async {});
                   },
                 );
         },

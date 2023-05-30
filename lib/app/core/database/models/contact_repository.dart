@@ -1,34 +1,16 @@
 import 'dart:async';
 
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../models/contact.dart';
+import '../db.dart';
 
 class ContactRepository {
-  Database? _database;
-
-  Future<Database> get database async {
-    final dbpath = await getDatabasesPath();
-    const dbname = 'dpm.db';
-    final path = join(dbpath, dbname);
-    // Conectando
-    _database = await openDatabase(path,
-        version: 1, onConfigure: _onConfigure, onCreate: _createDB);
-    return _database!;
-  }
-
-  Future<void> _onConfigure(Database db) async {
-    await db.execute('PRAGMA foreign_keys = ON');
-  }
-
-  Future<void> _createDB(Database db, int version) async {
-    await db.execute(
-        'CREATE TABLE IF NOT EXISTS contacts (id UUID PRIMARY KEY,name VARCHAR(255), user_id UUID,phone VARCHAR(11), latitude DECIMAL(9,6),longitude DECIMAL(9,6),FOREIGN KEY (user_id) REFERENCES users (id))');
-  }
+  final DatabaseImpl _database;
+  ContactRepository(this._database);
 
   Future<void> inserContact(Contact contact) async {
-    final db = await database;
+    final db = await _database.database;
 
     await db.insert(
       'contacts',
@@ -38,12 +20,12 @@ class ContactRepository {
   }
 
   Future<void> deleteContact(String id) async {
-    final db = await database;
+    final db = await _database.database;
     await db.delete('contacts', where: 'id = ?', whereArgs: [id]);
   }
 
   Future<List<Contact>> getAllContacts(String id) async {
-    final db = await database;
+    final db = await _database.database;
 
     List<Map<String, dynamic>> items =
         await db.query('contacts', where: 'id = ?', whereArgs: [id]);
@@ -60,7 +42,7 @@ class ContactRepository {
   }
 
   Future<List<Contact>> getContactsFromUser(dynamic userId) async {
-    final db = await database;
+    final db = await _database.database;
 
     List<Map<String, dynamic>> items =
         await db.query('contacts', where: 'user_id = ?', whereArgs: [userId]);

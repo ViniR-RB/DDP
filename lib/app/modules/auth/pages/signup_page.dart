@@ -56,12 +56,15 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     TextButton(
                       child: const Text('Voltar para o Login?'),
-                      onPressed: () => Modular.to.pushNamed('/'),
+                      onPressed: () => Modular.to.navigate('/login'),
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        await _controller.signUp(_nameController.text,
-                            _emailController.text, _passwordController.text);
+                        await _controller.signUp(
+                            _nameController.text,
+                            _emailController.text,
+                            _passwordController.text,
+                            context);
                       },
                       child: const Text('SignUp'),
                     ),

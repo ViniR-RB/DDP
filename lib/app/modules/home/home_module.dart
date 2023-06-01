@@ -14,8 +14,8 @@ import 'pages/profile_page.dart';
 class HomeModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind.singleton((i) =>
-            HomeController(i.get<AppController>(), i.get<HomeRepository>())),
+        Bind.singleton((i) => HomeController(i.get<AppController>(),
+            i.get<HomeRepository>(), )),
         Bind.singleton((i) => HomeRepository(i.get<GeoCodingService>(),
             i.get<ContactRepository>(), i.get<SecureStorage>())),
       ];

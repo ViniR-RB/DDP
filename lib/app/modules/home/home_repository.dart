@@ -31,4 +31,8 @@ class HomeRepository {
     final userId = await storage.read("user_id");
     return await repository.getContactsFromUser(userId);
   }
+
+  Future<void> delete() async {
+    await storage.delete('user_id');
+  }
 }

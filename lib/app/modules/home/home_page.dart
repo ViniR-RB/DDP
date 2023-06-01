@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:maps/app/modules/home/home_controller.dart';
 
 import 'components/card_category.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final controller = Modular.get<HomeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Home Page'),
+          actions: [
+            IconButton(
+                onPressed: () async {
+                  await controller.logout();
+                },
+                icon: const Icon(Icons.logout))
+          ],
         ),
         body: Column(
           children: [

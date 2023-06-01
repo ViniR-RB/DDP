@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maps/app/core/components/custom_input.dart';
 
+import '../../../core/components/custom_snackbar.dart';
 import '../home_controller.dart';
 
 abstract class CustomButtonSheetContact {
@@ -39,10 +40,16 @@ abstract class CustomButtonSheetContact {
                         width: 100,
                         height: 42,
                         child: ElevatedButton(
-                            onPressed: () => controller.createContact(
-                                nameController.text,
-                                phoneController.text,
-                                addresController.text),
+                            onPressed: () async {
+                              await controller.createContact(
+                                  nameController.text,
+                                  phoneController.text,
+                                  addresController.text);
+                              await controller.fetchContacts();
+                              CustomSnackBar.showSnackBar(
+                                  context, 'Usuário inserido com sucesso');
+                              Modular.to.pop();
+                            },
                             child: const Text('Salvar'))),
                   ],
                 ),

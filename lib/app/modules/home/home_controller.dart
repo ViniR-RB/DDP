@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maps/app/core/models/contact.dart';
 
 import '../../app_controller.dart';
@@ -13,7 +14,10 @@ class HomeController {
       User(id: 'id', name: 'name', email: 'email', password: 'password'));
   ValueNotifier<List<Contact>> contact = ValueNotifier([]);
 
-  HomeController(this.controller, this.repository);
+  HomeController(
+    this.controller,
+    this.repository,
+  );
 
   Future<void> whoIsMyUser() async {
     user.value = await controller.howMyUser();
@@ -25,5 +29,10 @@ class HomeController {
 
   Future<void> fetchContacts() async {
     contact.value = await repository.fetchContacts();
+  }
+
+  Future<void> logout() async {
+    await repository.delete();
+    Modular.to.navigate('/login');
   }
 }

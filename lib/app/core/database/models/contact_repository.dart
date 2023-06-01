@@ -19,6 +19,34 @@ class ContactRepository {
     );
   }
 
+// retornar um contato
+  Future<Contact?> detailContact(String id) async {
+    final db = await _database.database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'contacts',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    if (maps.isEmpty) {
+      return Contact.fromMap(maps.first);
+    }
+
+    return null;
+  }
+
+//realizar update em um contato
+  Future<void> updateContato(Contact updcontact) async {
+    final db = await _database.database;
+
+    await db.update(
+      'contacts',
+      updcontact.toMap(),
+      where: 'id = ?',
+      whereArgs: [updcontact.id],
+    );
+  }
+
   Future<void> deleteContact(String id) async {
     final db = await _database.database;
     await db.delete('contacts', where: 'id = ?', whereArgs: [id]);

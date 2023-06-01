@@ -33,7 +33,7 @@ class _ContactsPageState extends State<ContactsPage> {
               Icons.arrow_back,
               color: Colors.indigo[800],
             )),
-        title: const Text('Profile Page'),
+        title: const Text('Todos os contatos'),
       ),
       body: ValueListenableBuilder(
         valueListenable: _controller.contact,
@@ -48,7 +48,21 @@ class _ContactsPageState extends State<ContactsPage> {
                     return CardContact(
                         initialName: value[index].name[0],
                         title: value[index].name,
-                        onTap: () async {});
+                        onTap: () async {
+                          Modular.to.pushNamed('/home/detailContactPage',
+                              arguments: {'contact': value[index]});
+                          // Navigator.pushNamed(
+                          //   context,
+                          //   DetailContactPage.routeName,
+                          //   arguments: Contact(
+                          //     id: value[index].id,
+                          //     name: value[index].name,
+                          //     userId: value[index].userId,
+                          //     latitude: value[index].latitude,
+                          //     longitude: value[index].longitude,
+                          //   ),
+                          // );
+                        });
                   },
                 );
         },

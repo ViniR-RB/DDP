@@ -35,4 +35,16 @@ class HomeRepository {
   Future<void> delete() async {
     await storage.delete('user_id');
   }
+
+  Future<Contact?> detailContact(String id) async {
+    return await repository.detailContact(id);
+  }
+
+  Future<void> updateContact(Contact updateContact) async {
+    await repository.updateContato(updateContact);
+  }
+
+  Future<void> deleteContact(String id) async {
+    await repository.deleteContact(id);
+  }
 }

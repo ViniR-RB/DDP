@@ -62,6 +62,7 @@ class ContactRepository {
       items.length,
       (i) => Contact(
           id: items[i]['id'],
+          phone: items[i]['phone'],
           latitude: items[i]['latitude'],
           longitude: items[i]['longitude'],
           name: items[i]['name'],
@@ -79,6 +80,7 @@ class ContactRepository {
       items.length,
       (i) => Contact(
           id: items[i]['id'],
+          phone: items[i]['phone'],
           latitude: items[i]['latitude'],
           longitude: items[i]['longitude'],
           name: items[i]['name'],

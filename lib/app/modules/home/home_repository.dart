@@ -19,10 +19,10 @@ class HomeRepository {
         id: const Uuid().v4(),
         name: nome,
         userId: userId!,
+        phone: phone,
         latitude: locations['latitude'],
         longitude: locations['longitude'],
       );
-      print(locations);
       await repository.inserContact(contact);
     }
   }

@@ -6,6 +6,7 @@ class CustomInput extends StatelessWidget {
   final TextInputType keyboardType;
   final String labelText;
   Widget? prefixIcon;
+  void Function(String)? onChanged;
 
   CustomInput({
     Key? key,
@@ -13,6 +14,7 @@ class CustomInput extends StatelessWidget {
     required this.keyboardType,
     required this.labelText,
     this.prefixIcon,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -22,6 +24,7 @@ class CustomInput extends StatelessWidget {
       child: TextField(
         controller: controller,
         keyboardType: keyboardType,
+        onChanged: onChanged,
         decoration:
             InputDecoration(labelText: labelText, prefixIcon: prefixIcon),
       ),

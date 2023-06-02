@@ -14,73 +14,78 @@ abstract class CustomButtonSheetContact {
 
     return await showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         builder: (BuildContext context) {
           return SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
+            height: MediaQuery.of(context).size.height / 1.2,
+            child: Stack(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.close),
-                          onPressed: () => Modular.to.pop(),
-                        ),
-                        const Text(
-                          'Cria Contato',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w700),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                        width: 100,
-                        height: 42,
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              await controller.createContact(
-                                  nameController.text,
-                                  phoneController.text,
-                                  addresController.text);
-                              await controller.fetchContacts();
-                              CustomSnackBar.showSnackBar(
-                                  context, 'Usuário inserido com sucesso');
-                              Modular.to.pop();
-                            },
-                            child: const Text('Salvar'))),
-                  ],
-                ),
                 Column(
                   children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: CustomInput(
-                        controller: nameController,
-                        keyboardType: TextInputType.name,
-                        labelText: 'Nome do Contato',
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.close),
+                              onPressed: () => Modular.to.pop(),
+                            ),
+                            const Text(
+                              'Cria Contato',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w700),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                            width: 100,
+                            height: 42,
+                            child: ElevatedButton(
+                                onPressed: () async {
+                                  await controller.createContact(
+                                      nameController.text,
+                                      phoneController.text,
+                                      addresController.text);
+                                  await controller.fetchContacts();
+                                  CustomSnackBar.showSnackBar(
+                                      context, 'Usuário inserido com sucesso');
+                                  Modular.to.pop();
+                                },
+                                child: const Text('Salvar'))),
+                      ],
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: CustomInput(
-                        controller: phoneController,
-                        keyboardType: TextInputType.name,
-                        labelText: 'Telefone',
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: CustomInput(
-                        controller: addresController,
-                        keyboardType: TextInputType.streetAddress,
-                        labelText: 'Insira o Endereço do Contato',
-                      ),
-                    ),
+                    Column(
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: CustomInput(
+                            controller: nameController,
+                            keyboardType: TextInputType.name,
+                            labelText: 'Nome do Contato',
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: CustomInput(
+                            controller: phoneController,
+                            keyboardType: TextInputType.name,
+                            labelText: 'Telefone',
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: CustomInput(
+                            controller: addresController,
+                            keyboardType: TextInputType.streetAddress,
+                            labelText: 'Insira o Endereço do Contato',
+                          ),
+                        ),
+                      ],
+                    )
                   ],
-                )
+                ),
               ],
             ),
           );

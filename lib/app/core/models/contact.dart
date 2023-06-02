@@ -5,12 +5,14 @@ class Contact {
   final String id;
   final String name;
   final String userId;
+  final String phone;
   final double latitude;
   final double longitude;
   Contact({
     required this.id,
     required this.name,
     required this.userId,
+    required this.phone,
     required this.latitude,
     required this.longitude,
   });
@@ -19,6 +21,7 @@ class Contact {
     String? id,
     String? name,
     String? userId,
+    String? phone,
     double? latitude,
     double? longitude,
   }) {
@@ -26,6 +29,7 @@ class Contact {
       id: id ?? this.id,
       name: name ?? this.name,
       userId: userId ?? this.userId,
+      phone: phone ?? this.phone,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
     );
@@ -35,6 +39,7 @@ class Contact {
     return <String, dynamic>{
       'id': id,
       'name': name,
+      'phone': phone,
       'user_id': userId,
       'latitude': latitude,
       'longitude': longitude,
@@ -45,6 +50,7 @@ class Contact {
     return Contact(
       id: map['id'] as String,
       name: map['name'] as String,
+      phone: map['phone'] as String,
       userId: map['user_id'] as String,
       latitude: map['latitude'] as double,
       longitude: map['longitude'] as double,
@@ -58,7 +64,7 @@ class Contact {
 
   @override
   String toString() {
-    return 'Contact(id: $id, name: $name, userId: $userId, latitude: $latitude, longitude: $longitude)';
+    return 'Contact(id: $id, name: $name,phone: $phone, userId: $userId, latitude: $latitude, longitude: $longitude)';
   }
 
   @override
@@ -68,6 +74,7 @@ class Contact {
     return other.id == id &&
         other.name == name &&
         other.userId == userId &&
+        other.phone == phone &&
         other.latitude == latitude &&
         other.longitude == longitude;
   }
@@ -77,6 +84,7 @@ class Contact {
     return id.hashCode ^
         name.hashCode ^
         userId.hashCode ^
+        phone.hashCode ^
         latitude.hashCode ^
         longitude.hashCode;
   }

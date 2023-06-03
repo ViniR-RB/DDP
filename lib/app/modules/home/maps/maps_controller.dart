@@ -15,11 +15,12 @@ class MapsController {
       name: 'name',
       userId: 'user_id',
       phone: '0'));
+  ValueNotifier<List<Marker>> markers = ValueNotifier([]);
 
   MapsController(this.repository);
 
-  Future<void> searchContacts() async {
-    final result = await repository.searchContacts();
+  Future<void> searchContacts(String name) async {
+    final result = await repository.searchContacts(name);
 
     if (result != null) {
       contact.value = result;

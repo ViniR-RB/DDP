@@ -29,7 +29,7 @@ class MapSampleState extends State<MapsPage> {
                 controller: _searchController,
                 keyboardType: TextInputType.name,
                 onChanged: (search) async {
-                  await mapscontroller.searchContacts();
+                  await mapscontroller.searchContacts(search);
                 },
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),

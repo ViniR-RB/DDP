@@ -71,6 +71,25 @@ class ContactRepository {
     );
   }
 
+  Future<List<Contact>> getContactsFromUserAndName(dynamic userId, name) async {
+    final db = await _database.database;
+
+    List<Map<String, dynamic>> items = await db.query('contacts',
+        where: 'user_id = ? and name = ?', whereArgs: [userId, name]);
+
+    return List.generate(
+      items.length,
+      (i) => Contact(
+          id: items[i]['id'],
+          phone: items[i]['phone'],
+          latitude: items[i]['latitude'],
+          addres: items[i]['addres'],
+          longitude: items[i]['longitude'],
+          name: items[i]['name'],
+          userId: items[i]['user_id']),
+    );
+  }
+
   Future<List<Contact>> getContactsFromUser(dynamic userId) async {
     final db = await _database.database;
 

@@ -8,9 +8,10 @@ class MapsRepository {
   final SecureStorage storage;
   MapsRepository(this.repository, this.storage);
 
-  Future<Contact?> searchContacts() async {
+  Future<Contact?> searchContacts(String name) async {
     final userId = await storage.read('user_id');
-    final List<Contact> contact = await repository.getContactsFromUser(userId);
+    final List<Contact> contact =
+        await repository.getContactsFromUserAndName(userId, name);
     if (contact.isNotEmpty) {
       return contact[0];
     }

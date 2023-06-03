@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maps/app/core/components/custom_password.dart';
 
+import '../../../core/components/custom_button.dart';
 import '../../../core/components/custom_input.dart';
 import '../auth_controller.dart';
 
@@ -50,12 +51,12 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text('Não possui uma conta?'),
                         onPressed: () => Modular.to.pushNamed('/signup'),
                       ),
-                      ElevatedButton(
+                      CustomButton(
                         onPressed: () async {
                           await _controller.logIn(_emailController.text,
                               _passwordController.text, context);
                         },
-                        child: const Text('Log-In'),
+                        label: 'Log-In',
                       ),
                     ]),
               ),

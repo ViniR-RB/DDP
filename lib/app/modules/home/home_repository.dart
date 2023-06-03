@@ -10,8 +10,8 @@ class HomeRepository {
   final ContactRepository repository;
   HomeRepository(this.geoCoding, this.repository, this.storage);
 
-  Future<void> createContact(String nome, String phone, String address) async {
-    final locations = await geoCoding.searchFromAddress(address);
+  Future<void> createContact(String nome, String phone, String addres) async {
+    final locations = await geoCoding.searchFromAddress(addres);
 
     if (locations != null) {
       final userId = await storage.read("user_id");
@@ -19,6 +19,7 @@ class HomeRepository {
         id: const Uuid().v4(),
         name: nome,
         userId: userId!,
+        addres: addres,
         phone: phone,
         latitude: locations['latitude'],
         longitude: locations['longitude'],

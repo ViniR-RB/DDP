@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:maps/app/core/components/custom_button.dart';
 import 'package:maps/app/modules/auth/auth_controller.dart';
 
 import '../../../core/components/custom_input.dart';
@@ -58,7 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: const Text('Voltar para o Login?'),
                       onPressed: () => Modular.to.navigate('/login'),
                     ),
-                    ElevatedButton(
+                    CustomButton(
                       onPressed: () async {
                         await _controller.signUp(
                             _nameController.text,
@@ -66,7 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             _passwordController.text,
                             context);
                       },
-                      child: const Text('SignUp'),
+                      label: 'SignUp',
                     ),
                   ]),
             ),

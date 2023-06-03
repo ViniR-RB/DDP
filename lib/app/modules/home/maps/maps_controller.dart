@@ -11,10 +11,11 @@ class MapsController {
       id: 'id',
       latitude: 0,
       longitude: 0,
+      addres: 'address',
       name: 'name',
       userId: 'user_id',
       phone: '0'));
-  
+
   MapsController(this.repository);
 
   Future<void> searchContacts() async {

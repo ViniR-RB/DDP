@@ -19,6 +19,14 @@ class AppWidget extends StatelessWidget {
             titleTextStyle: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w900, fontSize: 16),
             centerTitle: true),
+        elevatedButtonTheme: const ElevatedButtonThemeData(
+            style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(1)))))),
+        buttonTheme: const ButtonThemeData(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(1)))),
         // Defina o tema personalizado para o TextField
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(),

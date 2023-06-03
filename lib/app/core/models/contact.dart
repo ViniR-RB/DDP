@@ -6,6 +6,7 @@ class Contact {
   final String name;
   final String userId;
   final String phone;
+  final String addres;
   final double latitude;
   final double longitude;
   Contact({
@@ -13,6 +14,7 @@ class Contact {
     required this.name,
     required this.userId,
     required this.phone,
+    required this.addres,
     required this.latitude,
     required this.longitude,
   });
@@ -22,6 +24,7 @@ class Contact {
     String? name,
     String? userId,
     String? phone,
+    String? addres,
     double? latitude,
     double? longitude,
   }) {
@@ -30,6 +33,7 @@ class Contact {
       name: name ?? this.name,
       userId: userId ?? this.userId,
       phone: phone ?? this.phone,
+      addres: addres ?? this.addres,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
     );
@@ -40,6 +44,7 @@ class Contact {
       'id': id,
       'name': name,
       'phone': phone,
+      'addres': addres,
       'user_id': userId,
       'latitude': latitude,
       'longitude': longitude,
@@ -52,6 +57,7 @@ class Contact {
       name: map['name'] as String,
       phone: map['phone'] as String,
       userId: map['user_id'] as String,
+      addres: map['addres'] as String,
       latitude: map['latitude'] as double,
       longitude: map['longitude'] as double,
     );
@@ -64,7 +70,7 @@ class Contact {
 
   @override
   String toString() {
-    return 'Contact(id: $id, name: $name,phone: $phone, userId: $userId, latitude: $latitude, longitude: $longitude)';
+    return 'Contact(id: $id, name: $name,phone: $phone, addres: $addres userId: $userId, latitude: $latitude, longitude: $longitude)';
   }
 
   @override
@@ -75,6 +81,7 @@ class Contact {
         other.name == name &&
         other.userId == userId &&
         other.phone == phone &&
+        other.addres == addres &&
         other.latitude == latitude &&
         other.longitude == longitude;
   }
@@ -85,6 +92,7 @@ class Contact {
         name.hashCode ^
         userId.hashCode ^
         phone.hashCode ^
+        addres.hashCode ^
         latitude.hashCode ^
         longitude.hashCode;
   }

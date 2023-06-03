@@ -52,7 +52,8 @@ class MapSampleState extends State<MapsPage> {
                   markers: <Marker>{
                     Marker(
                       markerId: MarkerId(value.name),
-                      icon: BitmapDescriptor.defaultMarker,
+                      icon: BitmapDescriptor.defaultMarkerWithHue(
+                          BitmapDescriptor.hueAzure),
                       infoWindow: InfoWindow(
                         title: value.name,
                         snippet: value.phone,

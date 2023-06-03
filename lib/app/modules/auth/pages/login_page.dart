@@ -29,35 +29,36 @@ class _LoginPageState extends State<LoginPage> {
           return SizedBox(
             width: size.maxWidth,
             height: size.maxHeight,
-            child: SingleChildScrollView(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CustomInput(
-                      labelText: 'Email',
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      prefixIcon: const Icon(Icons.email),
-                    ),
-                    CustomInputPassword(
-                      labelText: 'Password',
-                      controller: _passwordController,
-                      keyboardType: TextInputType.visiblePassword,
-                      prefixIcon: const Icon(Icons.password),
-                    ),
-                    TextButton(
-                      child: const Text('Não possui uma conta?'),
-                      onPressed: () => Modular.to.pushNamed('/signup'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        await _controller.logIn(_emailController.text,
-                            _passwordController.text, context);
-                      },
-                      child: const Text('Log-In'),
-                    ),
-                  ]),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomInput(
+                        labelText: 'Email',
+                        controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        prefixIcon: const Icon(Icons.email),
+                      ),
+                      CustomInputPassword(
+                        labelText: 'Password',
+                        controller: _passwordController,
+                        keyboardType: TextInputType.visiblePassword,
+                        prefixIcon: const Icon(Icons.password),
+                      ),
+                      TextButton(
+                        child: const Text('Não possui uma conta?'),
+                        onPressed: () => Modular.to.pushNamed('/signup'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          await _controller.logIn(_emailController.text,
+                              _passwordController.text, context);
+                        },
+                        child: const Text('Log-In'),
+                      ),
+                    ]),
+              ),
             ),
           );
         },

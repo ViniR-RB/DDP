@@ -48,9 +48,11 @@ class _DetailContactPageState extends State<DetailContactPage> {
             padding: const EdgeInsets.only(top: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 CircleAvatar(
                   radius: 64,
+                  child: Text(data.name[0].toUpperCase(),
+                      style: const TextStyle(fontSize: 32)),
                 ),
               ],
             ),

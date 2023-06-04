@@ -56,7 +56,7 @@ class ContactRepository {
     final db = await _database.database;
 
     List<Map<String, dynamic>> items =
-        await db.query('contacts', where: 'id = ?', whereArgs: [id]);
+        await db.query('contacts', where: 'user_id = ?', whereArgs: [id]);
 
     return List.generate(
       items.length,

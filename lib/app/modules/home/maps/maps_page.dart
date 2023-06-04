@@ -16,6 +16,7 @@ class MapSampleState extends State<MapsPage> {
   @override
   void initState() {
     super.initState();
+    mapscontroller.searchAllContacts();
   }
 
   @override
@@ -32,6 +33,7 @@ class MapSampleState extends State<MapsPage> {
                   await mapscontroller.searchContacts(search);
                 },
                 decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.search_rounded),
                     border: OutlineInputBorder(),
                     labelText: 'Digite um nome de um usuário')),
           ),
@@ -39,7 +41,7 @@ class MapSampleState extends State<MapsPage> {
         body: Stack(
           children: [
             ValueListenableBuilder(
-              valueListenable: mapscontroller.contact,
+              valueListenable: mapscontroller.markers,
               builder: (context, value, child) {
                 return GoogleMap(
                   initialCameraPosition: const CameraPosition(
@@ -49,21 +51,7 @@ class MapSampleState extends State<MapsPage> {
                   onMapCreated: (controller) {
                     mapscontroller.mapController = controller;
                   },
-                  markers: <Marker>{
-                    Marker(
-                      markerId: MarkerId(value.name),
-                      icon: BitmapDescriptor.defaultMarkerWithHue(
-                          BitmapDescriptor.hueAzure),
-                      infoWindow: InfoWindow(
-                        title: value.name,
-                        snippet: value.phone,
-                      ),
-                      position: LatLng(
-                        value.latitude,
-                        value.longitude,
-                      ),
-                    ),
-                  },
+                  markers: mapscontroller.markers.value,
                 );
               },
             )

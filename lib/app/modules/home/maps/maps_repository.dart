@@ -17,4 +17,10 @@ class MapsRepository {
     }
     return null;
   }
+
+  Future<List<Contact>> searchAllContacts() async {
+    final userId = await storage.read('user_id');
+    final List<Contact> contact = await repository.getAllContacts(userId!);
+    return contact;
+  }
 }

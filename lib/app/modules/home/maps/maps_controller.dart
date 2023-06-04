@@ -15,7 +15,7 @@ class MapsController {
       name: 'name',
       userId: 'user_id',
       phone: '0'));
-  ValueNotifier<List<Marker>> markers = ValueNotifier([]);
+  ValueNotifier<Set<Marker>> markers = ValueNotifier(<Marker>{});
 
   MapsController(this.repository);
 
@@ -30,14 +30,36 @@ class MapsController {
 
   void selectContact(Contact contact) async {
     moveCameraToLocation(contact.latitude, contact.longitude);
+    markers.value.add(Marker(
+        markerId: MarkerId(
+          contact.id,
+        ),
+        position: LatLng(contact.latitude, contact.longitude),
+        infoWindow: InfoWindow(snippet: contact.phone, title: contact.name)));
   }
 
   Future<void> moveCameraToLocation(double latitude, double longitude) async {
     if (mapController != null) {
       LatLng latLng = LatLng(latitude, longitude);
       CameraPosition cameraPosition = CameraPosition(target: latLng, zoom: 15);
+
       mapController!
           .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
     }
+  }
+
+  Future<void> searchAllContacts() async {
+    final result = await repository.searchAllContacts();
+    result
+        .map(
+          (e) => markers.value.add(
+            Marker(
+                markerId: MarkerId(e.id),
+                position: LatLng(e.latitude, e.longitude),
+                infoWindow: InfoWindow(snippet: e.phone, title: e.name)),
+          ),
+        )
+        .toList();
+    print(markers.value);
   }
 }

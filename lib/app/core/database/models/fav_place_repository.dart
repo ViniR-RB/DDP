@@ -19,6 +19,21 @@ class FavoritePlaceRepository {
     );
   }
 
+  Future<FavoritePlace?> detailPlaceFromNameandUser(
+      String userId, String name) async {
+    final db = await _database.database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'places',
+      where: 'user_id = ? and name = ?',
+      whereArgs: [userId, name],
+    );
+
+    if (maps.isNotEmpty) {
+      return FavoritePlace.fromMap(maps.first);
+    }
+    return null;
+  }
+
 // retornar um lugar favorito
   Future<FavoritePlace?> detailPlace(String id) async {
     final db = await _database.database;

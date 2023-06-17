@@ -5,7 +5,6 @@ import 'package:maps/app/modules/home/components/card_contact.dart';
 import 'package:maps/app/modules/home/places/add_place.dart';
 import 'package:maps/app/modules/home/places/place_controller.dart';
 
-
 class FavoritePlacesPage extends StatefulWidget {
   const FavoritePlacesPage({
     super.key,
@@ -30,7 +29,7 @@ class _FavoritePlacesPageState extends State<FavoritePlacesPage> {
         automaticallyImplyLeading: false,
         actions: const [],
         leading: IconButton(
-            onPressed: () => Modular.to.pushNamed('/home'),
+            onPressed: () => Modular.to.pop(),
             icon: Icon(
               Icons.arrow_back,
               color: Colors.indigo[800],

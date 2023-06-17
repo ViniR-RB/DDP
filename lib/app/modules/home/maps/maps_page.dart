@@ -13,29 +13,71 @@ class MapsPage extends StatefulWidget {
 class MapSampleState extends State<MapsPage> {
   final TextEditingController _searchController = TextEditingController();
   final MapsController mapscontroller = Modular.get<MapsController>();
+  bool searchIsContact = true;
   @override
   void initState() {
-    super.initState();
     mapscontroller.listenAllMarkers();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.people),
+              onPressed: () {
+                setState(() {
+                  searchIsContact = true;
+                });
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.location_city),
+              onPressed: () {
+                setState(() {
+                  searchIsContact = false;
+                });
+              },
+            )
+          ],
           title: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 30,
-            child: TextField(
-                controller: _searchController,
-                keyboardType: TextInputType.name,
-                onChanged: (search) async {
-                  await mapscontroller.searchContacts(search);
-                },
-                decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search_rounded),
-                    border: UnderlineInputBorder(),
-                    hintText: 'Digite um nome de um usuário')),
+            child: searchIsContact == true
+                ? TextField(
+                    controller: _searchController,
+                    keyboardType: TextInputType.name,
+                    onChanged: (search) async {
+                      await mapscontroller.searchContacts(search);
+                    },
+                    decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.search_rounded),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.blue,
+                            width: 2.0,
+                          ),
+                        ),
+                        border: UnderlineInputBorder(),
+                        hintText: 'Procurar Contato'))
+                : TextField(
+                    controller: _searchController,
+                    keyboardType: TextInputType.name,
+                    onChanged: (search) async {
+                      await mapscontroller.searchPlaceFromNameandUser(search);
+                    },
+                    decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.search_rounded),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.blue,
+                            width: 2.0,
+                          ),
+                        ),
+                        border: UnderlineInputBorder(),
+                        hintText: 'Procuar Lugar')),
           ),
         ),
         body: Stack(

@@ -40,4 +40,14 @@ class MapsRepository {
     }
     return contact;
   }
+
+  Future<FavoritePlace?> detailPlaceFromNameandUser(String name) async {
+    final userId = await storage.read('user_id');
+    final place =
+        await repositoryPlace.detailPlaceFromNameandUser(userId!, name);
+    if (place != null) {
+      return place;
+    }
+    return null;
+  }
 }

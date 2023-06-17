@@ -28,25 +28,18 @@ class MapsController {
     }
   }
 
-  Future<void> searchMark(String markerId) async {
-    final marker =
-        markers.value.where((element) => element.markerId == markerId).toList();
-    moveCameraToLocation(
-        marker[0].position.latitude, marker[0].position.longitude);
-  }
-
   Future<void> listenAllMarkers() async {
     final places = await repository.listenFavoritePlaces();
     final contacts = await repository.searchAllContacts();
     if (places.isNotEmpty) {
       places.map((e) {
-        print(e.id);
         markers.value.add(
           Marker(
               markerId: MarkerId(
                 e.id,
               ),
-              position: LatLng(e.latitude!, e.longitude!)),
+              position: LatLng(e.latitude!, e.longitude!),
+              infoWindow: InfoWindow(title: e.name, snippet: e.phone)),
         );
       }).toList();
     }
@@ -58,6 +51,7 @@ class MapsController {
                   markerId: MarkerId(
                     e.id,
                   ),
+                  infoWindow: InfoWindow(title: e.name, snippet: e.phone),
                   position: LatLng(e.latitude, e.longitude)),
             ),
           )
@@ -97,6 +91,15 @@ class MapsController {
           ),
         )
         .toList();
-    print(markers.value);
+  }
+
+  Future<void> searchPlaceFromNameandUser(String name) async {
+    final result = await repository.detailPlaceFromNameandUser(name);
+    if (result != null) {
+      print(result.latitude!);
+      print(result.longitude!);
+      moveCameraToLocation(result.latitude!, result.longitude!);
+    }
+    return;
   }
 }

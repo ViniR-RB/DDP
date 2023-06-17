@@ -8,7 +8,7 @@ class MapsModule extends Module {
   @override
   List<Bind> get binds => [
         Bind((i) => MapsController(i.get())),
-        Bind((i) => MapsRepository(i.get(), i.get())),
+        Bind((i) => MapsRepository(i.get(), i.get(), i.get())),
       ];
 
   @override

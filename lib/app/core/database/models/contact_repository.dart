@@ -20,7 +20,7 @@ class ContactRepository {
   }
 
 // retornar um contato
-  Future<Contact?> detailContact(String id) async {
+  Future<Contact> detailContact(String id) async {
     final db = await _database.database;
     final List<Map<String, dynamic>> maps = await db.query(
       'contacts',
@@ -28,11 +28,7 @@ class ContactRepository {
       whereArgs: [id],
     );
 
-    if (maps.isEmpty) {
-      return Contact.fromMap(maps.first);
-    }
-
-    return null;
+    return Contact.fromMap(maps.first);
   }
 
 //realizar update em um contato
@@ -64,7 +60,7 @@ class ContactRepository {
           id: items[i]['id'],
           phone: items[i]['phone'],
           latitude: items[i]['latitude'],
-          addres: items[i]['addres'],
+          addres: items[i]['address'],
           longitude: items[i]['longitude'],
           name: items[i]['name'],
           userId: items[i]['user_id']),
@@ -83,7 +79,7 @@ class ContactRepository {
           id: items[i]['id'],
           phone: items[i]['phone'],
           latitude: items[i]['latitude'],
-          addres: items[i]['addres'],
+          addres: items[i]['address'],
           longitude: items[i]['longitude'],
           name: items[i]['name'],
           userId: items[i]['user_id']),
@@ -102,7 +98,7 @@ class ContactRepository {
           id: items[i]['id'],
           phone: items[i]['phone'],
           latitude: items[i]['latitude'],
-          addres: items[i]['addres'],
+          addres: items[i]['address'],
           longitude: items[i]['longitude'],
           name: items[i]['name'],
           userId: items[i]['user_id']),

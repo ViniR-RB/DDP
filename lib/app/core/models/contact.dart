@@ -44,7 +44,7 @@ class Contact {
       'id': id,
       'name': name,
       'phone': phone,
-      'addres': addres,
+      'address': addres,
       'user_id': userId,
       'latitude': latitude,
       'longitude': longitude,

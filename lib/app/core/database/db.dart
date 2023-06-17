@@ -23,5 +23,7 @@ class DatabaseImpl {
   Future<void> _createDB(Database db, int version) async {
     await db.execute(SqlDatabase.userSql);
     await db.execute(SqlDatabase.contactSql);
+    await db.execute(SqlDatabase.favoritePlaceSql);
+
   }
 }

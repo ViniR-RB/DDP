@@ -28,6 +28,43 @@ class MapsController {
     }
   }
 
+  Future<void> searchMark(String markerId) async {
+    final marker =
+        markers.value.where((element) => element.markerId == markerId).toList();
+    moveCameraToLocation(
+        marker[0].position.latitude, marker[0].position.longitude);
+  }
+
+  Future<void> listenAllMarkers() async {
+    final places = await repository.listenFavoritePlaces();
+    final contacts = await repository.searchAllContacts();
+    if (places.isNotEmpty) {
+      places.map((e) {
+        print(e.id);
+        markers.value.add(
+          Marker(
+              markerId: MarkerId(
+                e.id,
+              ),
+              position: LatLng(e.latitude!, e.longitude!)),
+        );
+      }).toList();
+    }
+    if (contacts.isNotEmpty) {
+      contacts
+          .map(
+            (e) => markers.value.add(
+              Marker(
+                  markerId: MarkerId(
+                    e.id,
+                  ),
+                  position: LatLng(e.latitude, e.longitude)),
+            ),
+          )
+          .toList();
+    }
+  }
+
   void selectContact(Contact contact) async {
     moveCameraToLocation(contact.latitude, contact.longitude);
     markers.value.add(Marker(

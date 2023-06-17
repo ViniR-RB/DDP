@@ -36,8 +36,8 @@ class HomeController {
     Modular.to.navigate('/login');
   }
 
-    Future<Contact?> detailContact(String id) async {
-    final Contact? detailContact = await repository.detailContact(id);
+    Future<Contact> detailContact(String id) async {
+    final Contact detailContact = await repository.detailContact(id);
     return detailContact;
   }
 

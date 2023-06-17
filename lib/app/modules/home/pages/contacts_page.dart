@@ -28,7 +28,7 @@ class _ContactsPageState extends State<ContactsPage> {
         automaticallyImplyLeading: false,
         actions: const [],
         leading: IconButton(
-            onPressed: () => Modular.to.pop(),
+            onPressed: () => Modular.to.pushNamed('/home'),
             icon: Icon(
               Icons.arrow_back,
               color: Colors.indigo[800],

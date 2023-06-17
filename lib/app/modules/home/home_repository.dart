@@ -37,7 +37,7 @@ class HomeRepository {
     await storage.delete('user_id');
   }
 
-  Future<Contact?> detailContact(String id) async {
+  Future<Contact> detailContact(String id) async {
     return await repository.detailContact(id);
   }
 

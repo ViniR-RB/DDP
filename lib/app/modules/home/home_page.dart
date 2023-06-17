@@ -28,11 +28,28 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Column(
           children: [
+            Container(
+              // width: 150,
+              height: 180,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.scaleDown,
+                  image: AssetImage('assets/logoifpi.png'),
+                ),
+              ),
+            ),
             CardCategory(
               onTap: () => Modular.to.pushNamed('/home/contacts'),
               title: 'Contatos',
               subTitle: 'Adicione seus Contatos Mais Proximos',
               leading: Icons.people,
+            ),
+            CardCategory(
+              onTap: () => Modular.to.pushNamed('/home/favoritePlacesPage'),
+              title: 'Lugares Favoritos',
+              subTitle: 'Adicione lugares que mais gosta',
+              leading: Icons.place_outlined,
             ),
             CardCategory(
               title: 'Mapas',

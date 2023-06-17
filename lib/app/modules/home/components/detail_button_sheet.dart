@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:maps/app/core/components/custom_input.dart';
+import 'package:maps/app/core/models/contact.dart';
+import 'package:maps/app/core/services/geocoding.dart';
 
 import '../../../core/components/custom_snackbar.dart';
 import '../home_controller.dart';
 
-abstract class CustomButtonSheetContact {
-  static Future showModalBottomSheetCustom(
-      BuildContext context, HomeController controller) async {
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController phoneController = TextEditingController();
-    final TextEditingController addresController = TextEditingController();
-
+abstract class CustomButtonSheetDetail {
+  static Future showModalBottomSheetDetail(
+    BuildContext context,
+    HomeController controller, {
+    String? initialid,
+    String? initialName,
+    String? initialPhone,
+    String? initialAddress,
+  }) async {
+    final TextEditingController nameController =
+        TextEditingController(text: initialName);
+    final TextEditingController phoneController =
+        TextEditingController(text: initialPhone);
+    final TextEditingController addresController =
+        TextEditingController(text: initialAddress);
+    GeoCodingService geoCoding = GeoCodingService();
     return await showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -33,7 +44,7 @@ abstract class CustomButtonSheetContact {
                               onPressed: () => Modular.to.pop(),
                             ),
                             const Text(
-                              'Cria Contato',
+                              'Atualiza Contato',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w700),
                             ),
@@ -43,18 +54,22 @@ abstract class CustomButtonSheetContact {
                             width: 100,
                             height: 42,
                             child: ElevatedButton(
-                                style: const ButtonStyle(
-                                    textStyle:
-                                        MaterialStatePropertyAll<TextStyle>(
-                                            TextStyle(color: Colors.white))),
                                 onPressed: () async {
-                                  await controller.createContact(
-                                      nameController.text,
-                                      phoneController.text,
-                                      addresController.text);
-                                  await controller.fetchContacts();
-                                  CustomSnackBar.showSnackBar(
-                                      context, 'Usuário inserido com sucesso');
+                                  final locations = await geoCoding
+                                      .searchFromAddress(addresController.text);
+                                 final Contact updatedContact = await controller
+                                      .detailContact(initialid!);
+                                  final newContact = updatedContact.copyWith(
+                                      name: nameController.text,
+                                      phone: phoneController.text,
+                                      addres: addresController.text,
+                                      latitude: locations!['latitude']!,
+                                      longitude: locations['longitude']!);
+                                  await controller.repository
+                                      .updateContact(newContact);
+                                  // ignore: use_build_context_synchronously
+                                  CustomSnackBar.showSnackBar(context,
+                                      'Usuário atualizado com sucesso');
                                   Modular.to.pop();
                                 },
                                 child: const Text('Salvar'))),
@@ -83,7 +98,7 @@ abstract class CustomButtonSheetContact {
                           child: CustomInput(
                             controller: addresController,
                             keyboardType: TextInputType.streetAddress,
-                            labelText: 'Insira o Endereço do Contato',
+                            labelText: 'Endereço do Contato',
                           ),
                         ),
                       ],

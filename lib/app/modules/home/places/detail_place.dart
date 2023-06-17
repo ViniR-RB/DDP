@@ -1,36 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:maps/app/core/models/contact.dart';
-import 'package:maps/app/modules/home/home_controller.dart';
+import 'package:maps/app/core/models/fav_place.dart';
+import 'package:maps/app/modules/home/components/place_update_buttom_sheet.dart';
+import 'package:maps/app/modules/home/places/place_controller.dart';
 
-import '../components/detail_button_sheet.dart';
-
-class DetailContactPage extends StatefulWidget {
+class DetailPlacePage extends StatefulWidget {
   final dynamic args;
-  const DetailContactPage({super.key, required this.args});
+  const DetailPlacePage({super.key, required this.args});
 
   @override
-  State<DetailContactPage> createState() => _DetailContactPageState();
+  State<DetailPlacePage> createState() => _DetailPlacePageState();
 }
 
-class _DetailContactPageState extends State<DetailContactPage> {
-  final _controller = Modular.get<HomeController>();
-  late Contact data;
+class _DetailPlacePageState extends State<DetailPlacePage> {
+  final _controller = Modular.get<PlacesController>();
+  late FavoritePlace data;
 
   void _editContact() async {
-    await CustomButtonSheetDetail.showModalBottomSheetDetail(
+    await CustomButtonSheetPlaceDetail.showModalBottomSheetDetail(
       context,
       _controller,
       initialid: data.id,
       initialName: data.name,
       initialPhone: data.phone,
-      initialAddress: data.addres,
+      initialAddress: data.address,
+      initialsocialmidia: data.socialmidia,
+      initialdescription: data.description,
     );
   }
 
   @override
   void initState() {
-    data = widget.args['contact'];
+    data = widget.args['place'];
     super.initState();
   }
 
@@ -56,19 +57,19 @@ class _DetailContactPageState extends State<DetailContactPage> {
                   return AlertDialog(
                     title: const Text('Confirmar exclusão'),
                     content: const Text(
-                        'Tem certeza que deseja excluir este contato?'),
+                        'Tem certeza que deseja excluir este lugar?'),
                     actions: [
                       TextButton(
                         child: const Text('Cancelar'),
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Modular.to.pop();
                         },
                       ),
                       TextButton(
                         child: const Text('Excluir'),
                         onPressed: () {
-                          _controller.repository.deleteContact(data.id);
-                          Modular.to.pushNamed('/home/contacts');
+                          _controller.repository.deletePlace(data.id);
+                          Modular.to.pushNamed('/home/favoritePlacesPage');
                         },
                       ),
                     ],
@@ -85,7 +86,7 @@ class _DetailContactPageState extends State<DetailContactPage> {
               Icons.arrow_back,
               color: Colors.indigo[800],
             )),
-        title: const Text('Seu contato'),
+        title: const Text('Lugar favorito'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -142,7 +143,7 @@ class _DetailContactPageState extends State<DetailContactPage> {
               Flexible(
                 child: Center(
                   child: Text(
-                    data.addres,
+                    data.address!,
                     // overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 24,
@@ -153,6 +154,28 @@ class _DetailContactPageState extends State<DetailContactPage> {
                 ),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            'Rede Social: ${data.socialmidia}',
+            style: const TextStyle(
+              fontSize: 25,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            'Descrição: ${data.description}',
+            style: const TextStyle(
+              fontSize: 22,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ],
       ),
